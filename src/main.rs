@@ -3,13 +3,13 @@ use rand::Rng;
 use std::{thread, time};
 
 fn main() {
-    let length = 3;
+    let length = 10;
     let mut table: Vec<bool> = initilize_table(length);
 
     loop {
         clear();
         calculation_next_generation(&mut table, length);
-        show_next_board(&table);
+        show_next_board(&table, length);
         sleep(2000);
     }
 }
@@ -18,7 +18,7 @@ fn initilize_table(length: usize) -> Vec<bool> {
     let mut table: Vec<bool> = Vec::with_capacity(length);
     let mut rng = rand::thread_rng();
 
-    for _ in 0..length {
+    for _ in 0..(length * length) {
         table.push(rng.gen()); // 50%でtrue or false
     }
 
@@ -27,17 +27,20 @@ fn initilize_table(length: usize) -> Vec<bool> {
 
 fn calculation_next_generation(table: &mut [bool], length: usize) {
     let mut rng = rand::thread_rng();
-    for i in 0..length {
+    for i in 0..(length * length) {
         table[i] = rng.gen();
     }
 }
 
-fn show_next_board(table: &[bool]) {
+fn show_next_board(table: &[bool], length: usize) {
     println!(
         "{}",
-        table.iter().fold(String::new(), |acc, cell| acc
-            + if *cell { "■" } else { "□" }
-            + " ")
+        table
+            .iter()
+            .enumerate()
+            .fold(String::new(), |acc, (index, cell)| acc
+                + if *cell { "■" } else { "□" }
+                + if (index + 1) % length == 0 { "\n" } else { " " })
     );
 }
 
