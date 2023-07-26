@@ -50,8 +50,6 @@ fn calculation_next_generation(table: &mut [bool]) {
 }
 
 fn count_around_cells(table: Vec<bool>, index: usize) -> i32 {
-    let mut count: i32 = 0;
-
     // usizeの計算で0以下になる場合はpanicを起こすためキャストしている
     let index_i32 = index as i32;
     let length_i32 = LENGTH as i32;
@@ -60,44 +58,33 @@ fn count_around_cells(table: Vec<bool>, index: usize) -> i32 {
     let is_left_end = index_i32 % length_i32 == 0;
     let is_right_end = index_i32 % length_i32 == length_i32 - 1;
 
-    // 左上
-    if index_i32 - (length_i32 + 1) >= 0 && !is_left_end {
-        count += count_alive_cell(table[index - (LENGTH + 1)]);
-    }
-    // 上
-    if (index_i32 - length_i32) as i32 >= 0 {
-        count += count_alive_cell(table[index - LENGTH]);
-    }
-    // 右上
-    if (index_i32 - (length_i32 - 1)) as i32 >= 0 && !is_right_end {
-        count += count_alive_cell(table[index - (LENGTH - 1)]);
-    }
-    // 左
-    if (index_i32 - 1) as i32 >= 0 && !is_left_end {
-        count += count_alive_cell(table[index - 1]);
-    }
-    // 右
-    if index + 1 < LENGTH * LENGTH && !is_right_end {
-        count += count_alive_cell(table[index + 1]);
-    }
-    // 左下
-    if index + (LENGTH - 1) < LENGTH * LENGTH && !is_left_end {
-        count += count_alive_cell(table[index + (LENGTH - 1)]);
-    }
-    // 下
-    if index + LENGTH < LENGTH * LENGTH {
-        count += count_alive_cell(table[index + LENGTH]);
-    }
-    // 右下
-    if index + (LENGTH + 1) < LENGTH * LENGTH && !is_right_end {
-        count += count_alive_cell(table[index + (LENGTH + 1)]);
-    }
+    let count =
+        // 左上
+        count_alive_cell(&table, index_i32 - (length_i32 + 1), is_left_end)
+        // 上
+        + count_alive_cell(&table, index_i32 - length_i32, false)
+        // 右上
+        + count_alive_cell(&table, index_i32 - (length_i32 - 1), is_right_end)
+        // 左
+        + count_alive_cell(&table, index_i32 - 1, is_left_end)
+        // 右
+        + count_alive_cell(&table, index_i32 + 1, is_right_end)
+        // 左下
+        + count_alive_cell(&table, index_i32 + (length_i32 - 1), is_left_end)
+        // 下
+        + count_alive_cell(&table, index_i32 + length_i32, false)
+        // 右下
+        + count_alive_cell(&table, index_i32 + (length_i32 + 1), is_right_end);
 
     count
 }
 
-fn count_alive_cell(is_alive: bool) -> i32 {
-    if is_alive {
+fn count_alive_cell(table: &Vec<bool>, index: i32, is_invalid_horizontal_edge: bool) -> i32 {
+    if index < 0 || index >= LENGTH as i32 * LENGTH as i32 || is_invalid_horizontal_edge {
+        return 0;
+    }
+
+    if table[index as usize] {
         1
     } else {
         0
