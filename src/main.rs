@@ -1,6 +1,6 @@
 extern crate rand;
 use rand::Rng;
-use std::{thread, time};
+mod utils;
 
 const LENGTH: usize = 20;
 const SLEEP_MILLISECONDS: u64 = 1000;
@@ -9,10 +9,10 @@ fn main() {
     let mut table: Vec<bool> = initilize_table();
 
     loop {
-        clear();
+        utils::clear();
         calculation_next_generation(&mut table);
         show_next_board(&table);
-        sleep(SLEEP_MILLISECONDS);
+        utils::sleep(SLEEP_MILLISECONDS);
     }
 }
 
@@ -114,12 +114,4 @@ fn show_next_board(table: &[bool]) {
                 + if *cell { "■" } else { "□" }
                 + if (index + 1) % LENGTH == 0 { "\n" } else { " " })
     );
-}
-
-fn sleep(millisecond: u64) {
-    thread::sleep(time::Duration::from_millis(millisecond));
-}
-
-fn clear() {
-    print!("{}[2J", 27 as char);
 }
