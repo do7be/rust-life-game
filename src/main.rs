@@ -3,7 +3,7 @@ use rand::Rng;
 mod utils;
 
 const LENGTH: usize = 20;
-const SLEEP_MILLISECONDS: u64 = 1000;
+const SLEEP_MILLISECONDS: u64 = 500;
 
 fn main() {
     let mut table: Vec<bool> = initilize_table();
