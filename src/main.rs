@@ -10,7 +10,7 @@ fn main() {
 
     loop {
         utils::clear();
-        calculation_next_generation(&mut table);
+        calculate_next_generation(&mut table);
         show_next_board(&table);
         utils::sleep(SLEEP_MILLISECONDS);
     }
@@ -27,7 +27,7 @@ fn initilize_table() -> Vec<bool> {
     table
 }
 
-fn calculation_next_generation(table: &mut [bool]) {
+fn calculate_next_generation(table: &mut [bool]) {
     let current_table = table.to_vec(); // 変更前のテーブル
 
     for i in 0..(LENGTH * LENGTH) as usize {
