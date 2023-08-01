@@ -32,7 +32,7 @@ fn calculate_next_generation(table: &mut [bool]) {
 
     for i in 0..(LENGTH * LENGTH) as usize {
         // 周囲に生きたセルがいくつあるか
-        let count = count_around_cells(current_table.to_vec(), i);
+        let count = count_around_cells(&current_table, i);
         if table[i] {
             if count == 2 || count == 3 {
                 table[i] = true; // 生存
@@ -49,7 +49,7 @@ fn calculate_next_generation(table: &mut [bool]) {
     }
 }
 
-fn count_around_cells(table: Vec<bool>, index: usize) -> i32 {
+fn count_around_cells(table: &Vec<bool>, index: usize) -> i32 {
     // usizeの計算で0以下になる場合はpanicを起こすためキャストしている
     let index_i32 = index as i32;
 
