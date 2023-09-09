@@ -105,3 +105,47 @@ impl LifeGame {
         );
     }
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test_new() {
+        let size = 11;
+        let life_game = LifeGame::new(size);
+        assert_eq!(life_game.size, size);
+        assert_eq!(life_game.table.borrow().len(), (size * size) as usize);
+    }
+
+    #[test]
+    fn test_new_smaller_min_size() {
+        let size = 1;
+        let life_game = LifeGame::new(size);
+        assert_eq!(life_game.size, MIN_SIZE);
+        assert_eq!(
+            life_game.table.borrow().len(),
+            (MIN_SIZE * MIN_SIZE) as usize
+        );
+    }
+
+    #[test]
+    fn test_new_larger_max_size() {
+        let size = 101;
+        let life_game = LifeGame::new(size);
+        assert_eq!(life_game.size, MAX_SIZE);
+        assert_eq!(
+            life_game.table.borrow().len(),
+            (MAX_SIZE * MAX_SIZE) as usize
+        );
+    }
+
+    #[test]
+    fn test_next_generation() {
+        let life_game = LifeGame::new(10);
+        let original = life_game.table.borrow().to_vec();
+        life_game.next_generation();
+
+        assert_ne!(original, life_game.table.borrow().to_vec());
+    }
+}
