@@ -3,19 +3,19 @@ use life_game::LifeGame;
 use wasm_bindgen::prelude::*;
 extern crate rand;
 
-impl Default for Universe {
+impl Default for WasmLifeGame {
     fn default() -> Self {
         Self::new(10)
     }
 }
 
 #[wasm_bindgen]
-pub struct Universe {
+pub struct WasmLifeGame {
     life_game: LifeGame,
 }
 
 #[wasm_bindgen]
-impl Universe {
+impl WasmLifeGame {
     pub fn new(size: u32) -> Self {
         Self {
             life_game: life_game::LifeGame::new(size),
