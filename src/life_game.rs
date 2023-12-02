@@ -7,14 +7,14 @@ const MIN_SIZE: u32 = 10;
 const MAX_SIZE: u32 = 100;
 
 pub struct LifeGame {
-    size: u32,
-    table: RefCell<Vec<bool>>,
+    pub size: u32,
+    pub table: RefCell<Vec<bool>>,
 }
 
 impl LifeGame {
     pub fn new(size: u32) -> Self {
         let size = std::cmp::min(std::cmp::max(size, MIN_SIZE), MAX_SIZE);
-        let mut table: Vec<bool> = Vec::with_capacity(size as usize);
+        let mut table: Vec<bool> = Vec::new();
         let mut rng = rand::thread_rng();
 
         for _ in 0..(size * size) {

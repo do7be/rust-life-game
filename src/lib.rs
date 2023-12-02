@@ -2,6 +2,7 @@ mod life_game;
 use life_game::LifeGame;
 use wasm_bindgen::prelude::*;
 extern crate rand;
+use js_sys::Array;
 
 impl Default for WasmLifeGame {
     fn default() -> Self {
@@ -28,5 +29,18 @@ impl WasmLifeGame {
 
     pub fn render(&self) -> String {
         self.life_game.to_string()
+    }
+
+    pub fn size(&self) -> u32 {
+        self.life_game.size
+    }
+
+    pub fn table(&self) -> js_sys::Array {
+        self.life_game
+            .table
+            .borrow()
+            .iter()
+            .map(|&x| JsValue::from_bool(x))
+            .collect()
     }
 }
