@@ -1,6 +1,6 @@
 # Rust Life Game
 
-Rust を学び始めたのでとりあえずライフゲームを書いてみた
+Rust を学び始めたのでとりあえずライフゲームを書いてみた。Wasm 対応もしている。
 
 https://github.com/do7be/rust-life-game/assets/9024344/68a8df78-da48-4da5-b247-f2d16d98bb2f
 
