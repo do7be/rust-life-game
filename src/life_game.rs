@@ -1,4 +1,5 @@
 extern crate rand;
+use core::fmt;
 use rand::Rng;
 use std::cell::RefCell;
 
@@ -6,8 +7,8 @@ const MIN_SIZE: u32 = 10;
 const MAX_SIZE: u32 = 100;
 
 pub struct LifeGame {
-    pub size: u32,
-    pub table: RefCell<Vec<bool>>,
+    size: u32,
+    table: RefCell<Vec<bool>>,
 }
 
 impl LifeGame {
@@ -88,21 +89,32 @@ impl LifeGame {
         }
     }
 
-    pub fn print(&self) {
-        println!(
+    #[allow(dead_code)]
+    pub fn print_terminal(&self) {
+        println!("{}", self);
+    }
+}
+
+impl fmt::Display for LifeGame {
+    #[allow(unused_must_use)]
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        write!(
+            f,
             "{}",
             self.table
                 .borrow()
                 .iter()
                 .enumerate()
-                .fold(String::new(), |acc, (index, cell)| acc
-                    + if *cell { "■" } else { "□" }
-                    + if (index + 1) % self.size as usize == 0 {
-                        "\n"
-                    } else {
-                        " "
-                    })
+                .fold(String::new(), |acc, (index, cell)| {
+                    acc + if *cell { "■" } else { "□" }
+                        + if (index + 1) % self.size as usize == 0 {
+                            "\n"
+                        } else {
+                            " "
+                        }
+                })
         );
+        Ok(())
     }
 }
 

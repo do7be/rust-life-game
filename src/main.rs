@@ -8,7 +8,7 @@ fn main() {
     loop {
         utils::clear();
         life_game.next_generation();
-        life_game.print();
+        life_game.print_terminal();
         utils::sleep(SLEEP_MILLISECONDS);
     }
 }
