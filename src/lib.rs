@@ -1,8 +1,15 @@
 mod life_game;
 use life_game::LifeGame;
+mod utils;
 use wasm_bindgen::prelude::*;
 extern crate rand;
-use js_sys::Array;
+extern crate web_sys;
+
+macro_rules! log {
+    ( $( $t:tt )* ) => {
+        web_sys::console::log_1(&format!( $( $t )* ).into());
+    }
+}
 
 impl Default for WasmLifeGame {
     fn default() -> Self {
@@ -18,6 +25,9 @@ pub struct WasmLifeGame {
 #[wasm_bindgen]
 impl WasmLifeGame {
     pub fn new(size: u32) -> Self {
+        // panicをconsole.error()で書き出す処理。初期化時に1回だけ呼び出す。
+        utils::set_panic_hook();
+
         Self {
             life_game: life_game::LifeGame::new(size),
         }
@@ -25,6 +35,7 @@ impl WasmLifeGame {
 
     pub fn tick(&mut self) {
         self.life_game.next_generation();
+        log!("tick");
     }
 
     pub fn render(&self) -> String {
