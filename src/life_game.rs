@@ -93,6 +93,13 @@ impl LifeGame {
     pub fn print_terminal(&self) {
         println!("{}", self);
     }
+
+    #[allow(dead_code)]
+    pub fn toggle(&mut self, row: u32, column: u32) {
+        let mut table = self.table.borrow_mut();
+        let index = (row * self.size + column) as usize;
+        table[index] = !table[index];
+    }
 }
 
 impl fmt::Display for LifeGame {

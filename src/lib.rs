@@ -42,6 +42,10 @@ impl WasmLifeGame {
         self.life_game.to_string()
     }
 
+    pub fn toggle(&mut self, row: u32, column: u32) {
+        self.life_game.toggle(row, column);
+    }
+
     pub fn size(&self) -> u32 {
         self.life_game.size
     }
