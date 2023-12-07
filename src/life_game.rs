@@ -167,4 +167,13 @@ mod tests {
 
         assert_ne!(original, life_game.table.borrow().to_vec());
     }
+
+    #[test]
+    fn test_toggle() {
+        let mut life_game = LifeGame::new(10);
+        let original = life_game.table.borrow()[0];
+        life_game.toggle(0, 0);
+
+        assert_ne!(original, life_game.table.borrow()[0]);
+    }
 }
