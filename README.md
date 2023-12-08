@@ -2,7 +2,15 @@
 
 Rust を学び始めたのでとりあえずライフゲームを書いてみた。Wasm 対応もしている。
 
+## Demo
+
+terminal
+
 https://github.com/do7be/rust-life-game/assets/9024344/68a8df78-da48-4da5-b247-f2d16d98bb2f
+
+wasm
+
+https://github.com/do7be/rust-life-game/assets/9024344/c36a848e-3c38-4821-bce5-306494871ffc
 
 ## Wasm 対応
 
@@ -167,5 +175,3 @@ const drawCells = () => {
   ctx.stroke();
 };
 ```
-
-https://github.com/do7be/rust-life-game/assets/9024344/c36a848e-3c38-4821-bce5-306494871ffc
